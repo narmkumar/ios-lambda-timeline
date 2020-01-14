@@ -151,23 +151,64 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Tu-Nb-cae">
-                                        <rect key="frame" x="177" y="453" width="61" height="30"/>
-                                        <state key="normal" title="Vibrance"/>
-                                        <connections>
-                                            <action selector="vibranceFilterTapped:" destination="1Aw-4e-BW2" eventType="touchUpInside" id="kSI-93-Vw0"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CwV-5P-U26">
+                                        <rect key="frame" x="50" y="445" width="314" height="59.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OeS-Xf-AxC">
+                                                <rect key="frame" x="132" y="0.0" width="50" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="s95-8L-Qxm">
+                                                <rect key="frame" x="0.0" y="28.5" width="314" height="32"/>
+                                                <segments>
+                                                    <segment title="None"/>
+                                                    <segment title="Noir"/>
+                                                    <segment title="Process"/>
+                                                    <segment title="Sepia"/>
+                                                    <segment title="Fade"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="filterChanged:" destination="1Aw-4e-BW2" eventType="valueChanged" id="6Q8-ki-mu3"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="JbM-rk-Gu7">
+                                        <rect key="frame" x="20" y="534.5" width="374" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vibrance Intensity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zzw-oA-44c">
+                                                <rect key="frame" x="114.5" y="0.0" width="145" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fxg-0K-dmD">
+                                                <rect key="frame" x="-1" y="28.5" width="376" height="31"/>
+                                                <connections>
+                                                    <action selector="intensityChanged:" destination="1Aw-4e-BW2" eventType="valueChanged" id="2CX-I4-ysu"/>
+                                                </connections>
+                                            </slider>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="fxg-0K-dmD" secondAttribute="trailing" constant="1" id="ZuW-tX-A7v"/>
+                                            <constraint firstItem="fxg-0K-dmD" firstAttribute="leading" secondItem="JbM-rk-Gu7" secondAttribute="leading" constant="1" id="wfB-6X-p2k"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="PkI-rS-ua9" secondAttribute="trailing" id="1cC-FG-cAC"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="top" secondItem="9qd-If-ddw" secondAttribute="top" id="3tV-sW-NF1"/>
-                                    <constraint firstItem="2Tu-Nb-cae" firstAttribute="top" secondItem="PkI-rS-ua9" secondAttribute="bottom" constant="36" id="91X-Ty-nNR"/>
-                                    <constraint firstItem="2Tu-Nb-cae" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9qd-If-ddw" secondAttribute="leading" constant="20" symbolic="YES" id="VE0-bU-MpI"/>
+                                    <constraint firstItem="CwV-5P-U26" firstAttribute="top" secondItem="PkI-rS-ua9" secondAttribute="bottom" constant="28" id="6bY-rE-FI6"/>
+                                    <constraint firstItem="JbM-rk-Gu7" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" constant="20" id="GhC-OV-reb"/>
+                                    <constraint firstItem="CwV-5P-U26" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" constant="50" id="H1Y-kw-GGw"/>
+                                    <constraint firstAttribute="trailing" secondItem="CwV-5P-U26" secondAttribute="trailing" constant="50" id="K35-Ne-Z95"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="leading" secondItem="9qd-If-ddw" secondAttribute="leading" id="bPK-xN-eaO"/>
                                     <constraint firstAttribute="bottom" secondItem="PkI-rS-ua9" secondAttribute="bottom" id="cfV-7c-ubK"/>
                                     <constraint firstItem="PkI-rS-ua9" firstAttribute="width" secondItem="9qd-If-ddw" secondAttribute="width" id="dWh-6N-mO7"/>
-                                    <constraint firstAttribute="trailing" secondItem="2Tu-Nb-cae" secondAttribute="trailing" constant="176" id="itI-Lt-eah"/>
+                                    <constraint firstItem="JbM-rk-Gu7" firstAttribute="top" secondItem="CwV-5P-U26" secondAttribute="bottom" constant="30" id="jdz-kQ-oyJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="JbM-rk-Gu7" secondAttribute="trailing" constant="20" id="k49-st-kIJ"/>
                                     <constraint firstAttribute="height" priority="250" constant="603" id="qMm-7B-8rp"/>
                                 </constraints>
                             </scrollView>
@@ -191,15 +232,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="chooseImageButton" destination="VxD-cu-jHT" id="KVs-no-MbU"/>
+                        <outlet property="filterSegmentedControl" destination="s95-8L-Qxm" id="0cD-94-0QU"/>
                         <outlet property="imageHeightConstraint" destination="MHD-wr-Gq9" id="HyG-8g-Ck1"/>
                         <outlet property="imageView" destination="4eK-5F-H5h" id="e7m-c5-Xhz"/>
+                        <outlet property="intensitySlider" destination="fxg-0K-dmD" id="BXE-ti-rtD"/>
                         <outlet property="postButton" destination="hsH-Uv-tug" id="ZBn-KE-cpU"/>
                         <outlet property="titleTextField" destination="Op6-OA-6Ou" id="JEe-cj-4mv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXa-A2-VJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1969" y="-195"/>
+            <point key="canvasLocation" x="1968.1159420289857" y="-195.53571428571428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gdW-Je-ais">
