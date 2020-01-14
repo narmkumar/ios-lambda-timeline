@@ -8,9 +8,40 @@
 
 import UIKit
 import Photos
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 class ImagePostViewController: ShiftableViewController {
     
+    // MARK: - Variables
+    var postController: PostController!
+    var post: Post?
+    var imageData: Data?
+    
+    
+    let context = CIContext(options: nil)
+     
+    var originalImage: UIImage?
+
+    
+    // MARK: - Filters
+
+    private let vibranceFilter = CIFilter.vibrance()
+    private let colorControlsFilter = CIFilter.colorControls()
+    private let monoFilter = CIFilter.colorMonochrome()
+    private let sepiaFilter = CIFilter.sepiaTone()
+    private let noirFilter = CIFilter.photoEffectNoir()
+
+    
+    // MARK: - Outlets
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var chooseImageButton: UIButton!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var postButton: UIBarButtonItem!
+    
+    // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,40 +49,8 @@ class ImagePostViewController: ShiftableViewController {
         
         updateViews()
     }
-    
-    func updateViews() {
-        
-        guard let imageData = imageData,
-            let image = UIImage(data: imageData) else {
-                title = "New Post"
-                return
-        }
-        
-        title = post?.title
-        
-        setImageViewHeight(with: image.ratio)
-        
-        imageView.image = image
-        
-        chooseImageButton.setTitle("", for: [])
-    }
-    
-    private func presentImagePickerController() {
-        
-        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
-            presentInformationalAlertController(title: "Error", message: "The photo library is unavailable")
-            return
-        }
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.delegate = self
-        
-        imagePicker.sourceType = .photoLibrary
+    // MARK: - IBActions
 
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
     @IBAction func createPost(_ sender: Any) {
         
         view.endEditing(true)
@@ -101,8 +100,72 @@ class ImagePostViewController: ShiftableViewController {
         case .restricted:
             self.presentInformationalAlertController(title: "Error", message: "Unable to access the photo library. Your device's restrictions do not allow access.")
             
+        @unknown default:
+            NSLog("Problem occuring")
         }
         presentImagePickerController()
+    }
+    
+    // MARK: - Image & Filtered Functions
+    
+    private func updateImage() {
+        if let originalImage = originalImage {
+            let filteredImage = filterImage(originalImage)
+            imageView.image = filteredImage
+        } else {
+            imageView.image = nil
+        }
+    }
+    
+    private func filterImage(_ image: UIImage) -> UIImage {
+        guard let cgImage = image.cgImage else { return image }
+        
+        let ciImage = CIImage(cgImage: cgImage)
+        
+        vibranceFilter.setValue(ciImage, forKey: kCIInputImageKey)
+        vibranceFilter.amount = 0.9
+        
+        guard let outputCIImage = vibranceFilter.outputImage else { return image }
+        
+        // Rendering Image Again
+        guard let outputCGImage = context.createCGImage(outputCIImage, from: CGRect(origin: CGPoint.zero, size: image.size))
+            else { return image }
+        
+        return UIImage(cgImage: outputCGImage)
+    }
+    
+    // MARK: - Given Functions
+    func updateViews() {
+        
+        guard let imageData = imageData,
+            let image = UIImage(data: imageData) else {
+                title = "New Post"
+                return
+        }
+        
+        title = post?.title
+        
+        setImageViewHeight(with: image.ratio)
+        
+        imageView.image = image
+        
+        chooseImageButton.setTitle("", for: [])
+    }
+
+    private func presentImagePickerController() {
+        
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else {
+            presentInformationalAlertController(title: "Error", message: "The photo library is unavailable")
+            return
+        }
+        
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.delegate = self
+        
+        imagePicker.sourceType = .photoLibrary
+
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func setImageViewHeight(with aspectRatio: CGFloat) {
@@ -111,18 +174,10 @@ class ImagePostViewController: ShiftableViewController {
         
         view.layoutSubviews()
     }
-    
-    var postController: PostController!
-    var post: Post?
-    var imageData: Data?
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var chooseImageButton: UIButton!
-    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var postButton: UIBarButtonItem!
+
 }
 
+// MARK: - Extensions
 extension ImagePostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

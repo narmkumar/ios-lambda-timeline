@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>161280681880-72leiqe0ropjl9cvkkch5na3frlrhffv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.161280681880-72leiqe0ropjl9cvkkch5na3frlrhffv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB8Tg2JEdHur79vTE4blZZC504FW3QaLAM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>161280681880</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.LambdaTimeline.project</string>
+	<key>PROJECT_ID</key>
+	<string>ios-lambda-school</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ios-lambda-school.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:161280681880:ios:7b1c35b8fb564c3d70eded</string>
+	<key>DATABASE_URL</key>
+	<string>https://ios-lambda-school.firebaseio.com</string>
+</dict>
+</plist>
