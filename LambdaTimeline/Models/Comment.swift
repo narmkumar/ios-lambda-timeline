@@ -15,7 +15,8 @@ class Comment: FirebaseConvertible, Equatable {
     static private let author = "author"
     static private let timestampKey = "timestamp"
     
-    let text: String
+    let text: String?
+    var audioURL: URL?
     let author: Author
     let timestamp: Date
     

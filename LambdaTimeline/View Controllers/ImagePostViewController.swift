@@ -10,6 +10,8 @@ import UIKit
 import Photos
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import AVFoundation
+
 
 class ImagePostViewController: ShiftableViewController {
     
@@ -140,9 +142,9 @@ class ImagePostViewController: ShiftableViewController {
             ciImage = outputVibranceCIImage
         }
         
-        effect: if filterSegmentedControl.selectedSegmentIndex > 0 {
-            let aFilter: CIFilter
-            
+        var aFilter = CIFilter()
+        
+        if filterSegmentedControl.selectedSegmentIndex > 0 {
             switch filterSegmentedControl.selectedSegmentIndex {
             case 1:
                 aFilter = noirFilter
@@ -153,22 +155,21 @@ class ImagePostViewController: ShiftableViewController {
             case 4:
                 aFilter = fadeFilter
             default:
-                break effect
+                break
             }
             aFilter.setValue(ciImage, forKey: kCIInputImageKey)
             if let outputCIImage = aFilter.outputImage {
                 ciImage = outputCIImage
             }
-}
-        
+        }
         
         let bounds = CGRect(origin: CGPoint.zero, size: image.size)
-
+        
         // Rendering Image Again
-            guard let outputCGImage = context.createCGImage(ciImage, from: bounds) else { return image }
-            
-            return UIImage(cgImage: outputCGImage)
-        }
+        guard let outputCGImage = context.createCGImage(ciImage, from: bounds) else { return image }
+        
+        return UIImage(cgImage: outputCGImage)
+    }
     
     // MARK: - Given Functions
     func updateViews() {

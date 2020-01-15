@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class ImagePostDetailTableViewController: UITableViewController {
     
@@ -42,7 +44,7 @@ class ImagePostDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     @IBAction func createComment(_ sender: Any) {
-        commentAlert()
+        displayCommentTypeAlert()
 
     }
     
@@ -62,6 +64,25 @@ class ImagePostDetailTableViewController: UITableViewController {
     }
     
 
+    private func displayCommentTypeAlert() {
+        let alert = UIAlertController(title: "New Comment", message: "Which kind of comment do you want to create?", preferredStyle: .actionSheet)
+        
+        let writtenPost = UIAlertAction(title: "Written", style: .default) { (_) in
+            self.commentAlert()
+        }
+        
+        let audioPost = UIAlertAction(title: "Audio", style: .default) { (_) in
+            self.performSegue(withIdentifier: "AudioCommentSegue", sender: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(writtenPost)
+        alert.addAction(audioPost)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+        }
     
     
     private func commentAlert() {
